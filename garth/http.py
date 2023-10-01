@@ -136,6 +136,9 @@ class Client:
     def post(self, *args, **kwargs) -> Response:
         return self.request("POST", *args, **kwargs)
 
+    def put(self, *args, **kwargs) -> Response:
+        return self.request("PUT", *args, **kwargs)
+
     def login(self, *args):
         self.oauth1_token, self.oauth2_token = sso.login(*args, client=self)
 

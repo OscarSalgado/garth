@@ -158,3 +158,28 @@ def test_download(authed_client: Client):
     assert downloaded
     zip_magic_number = b"\x50\x4B\x03\x04"
     assert downloaded[:4] == zip_magic_number
+
+
+@pytest.mark.vcr
+def test_put(authed_client: Client):
+    data = [{
+            "changeState": "CHANGED",
+            "trainingMethod": "HR_RESERVE",
+            "lactateThresholdHeartRateUsed": 170,
+            "maxHeartRateUsed": 185,
+            "restingHrAutoUpdateUsed": False,
+            "sport": "DEFAULT",
+            "trainingMethod": "HR_RESERVE",
+            "zone1Floor": 130,
+            "zone2Floor": 140,
+            "zone3Floor": 150,
+            "zone4Floor": 160,
+            "zone5Floor": 170}]
+    path = "/biometric-service/heartRateZones"
+    authed_client.put(
+        "connectapi",
+        path,
+        api=True,
+        json=data,
+    )
+    assert authed_client.connectapi(path)
